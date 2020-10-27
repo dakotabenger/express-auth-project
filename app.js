@@ -2,15 +2,20 @@
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-
-const { environment } = require('./config');
+const session = require('express-session');
+const { v4: uuidv4 } = require('uuid');
+const { environment,sessionSecret } = require('./config');
 const indexRoutes = require('./routes');
 const parkRoutes = require('./routes/park');
 const attractionRoutes = require('./routes/attraction');
-
 const app = express();
 
 app.set('view engine', 'pug');
+app.use(session({
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.use(morgan('dev'));
 app.use(cookieParser());
