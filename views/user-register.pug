@@ -3,10 +3,12 @@ extends layout.pug
 include utils.pug
 
 block content
-    form(action="/user-register", method="post")
+    form(action="/user/register", method="post")
         +field("First Name", "firstName", user.firstName, 'text', null)
         +field("Last Name", "lastName", user.lastName, 'text', null)
         +field("Email Adress", "emailAdress", user.emailAdress, "text", null)
         +field("Password", "password", null, null)
         +field("Confirm Password", "confirmPassword", null, null)
         input(type="hidden", name="_csrf", value=csrfToken)
+        input(type="submit")
+    +validationErrorSummary(validationErrors)
